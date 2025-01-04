@@ -97,10 +97,10 @@ class Main:
             try:
                 result = eval(expression)  # 计算结果，eval() 会将传入的字符串解析为 Python 表达式，并在当前的全局和局部命名空间中执行它，然后返回执行结果。
                 # 在文本框中插入换行符和计算结果
-                self.update_output_view(f'\n= {result}\n')  # 更新视图
+                self.update_output_view(f'\n= {result}')  # 更新视图
 
             except Exception as e:
-                self.update_output_view('\n错误\n')  # 更新视图
+                self.update_output_view('\n错误')  # 更新视图
             
             # 插入换行符
             self.inoutput_text.insert('end', '\n')
