@@ -37,7 +37,12 @@ class Main:
 
         # 创建数字和运算符按钮 
         self.create_buttons()  # 创建按钮
-    
+    def backspace(self):
+        """删除文本框中的最后一个字符"""
+        current_text = self.inoutput_text.get("1.0", tk.END).strip()  # 获取当前文本框内容并去除两端空白
+        if current_text:  # 如果文本框不为空
+            self.inoutput_text.delete("end-2c", tk.END)  # 删除最后一个字符
+
     def create_button(self,frame, text, width,command):
             """辅助方法用于创建按钮"""
             return tk.Button(frame, text=text, bg=self.window_bg_color, fg='black', font=('Arial', 12),
@@ -54,13 +59,15 @@ class Main:
             del symbols[:2]  # 删除已使用的符号
 
     def create_special_buttons(self, frame):
-        """创建特殊按钮0、AC 和 ="""
+        """创建特殊按钮0、←、AC 和 ="""
         zero_button = self.create_button(frame, '0', 5, lambda symbol_var='0': self.do_calc(symbol_var))
         zero_button.pack(side="left",padx=(0,5))
-        clear_button = self.create_button(frame, 'AC', 12, self.clear_input)
-        clear_button.pack(side="left")
+        backspace_button = self.create_button(frame, '←', 5, self.backspace)
+        backspace_button.pack(side="left", padx=(0,5))
+        clear_button = self.create_button(frame, 'AC', 5, self.clear_input)
+        clear_button.pack(side="left",padx=(0,5))
         equal_button = self.create_button(frame, '=', 12, lambda symbol_var='=': self.do_calc(symbol_var))
-        equal_button.pack(side="left", padx=(12, 0))
+        equal_button.pack(side="left", padx=(10, 0))
 
     def create_buttons(self):
         symbols = self.SYMBOLS.copy()  # 使用常量符号列表
@@ -76,7 +83,7 @@ class Main:
                 if j in (3, 6, 9):
                     self.create_symbol_buttons(button_frame, symbols)
 
-                    # 创建'AC'和'=' 按钮
+                    # 创建特殊按钮
                     if j == 3:
                         long_frame = tk.Frame(self.window)
                         long_frame.pack(anchor='w', padx=(100, 5), pady=(5, 0))
