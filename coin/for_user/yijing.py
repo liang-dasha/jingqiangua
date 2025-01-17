@@ -10,3 +10,4 @@ def get_entry(key):
         }
     else:
         return {"错误": "条目不存在"}
+
